@@ -36,6 +36,7 @@ try:
     cursor.close()
     connection.close()
     print("Connection closed.")
+    return f"Current time: {result}"
 
 except Exception as e:
     print(f"Failed to connect: {e}")
