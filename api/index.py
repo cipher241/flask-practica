@@ -117,7 +117,7 @@ def dashboard():
         """)
         rows = cur.fetchall()
 
-        return render_template("dashboard.html")
+        return render_template("dashboard.html", rows=rows)
 
     except Exception as e:
         return f"<h3>Error: {e}</h3>"
