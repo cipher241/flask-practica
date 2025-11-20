@@ -24,7 +24,7 @@
     
     <p>Oprime el boton "Mostrar" para mostrar los datos del servidor sensores</p>
 
-      {%if sensor_id is defined %}
+      {%if sensor_id is not none %}
             <div class="container">
                 <h1>Sensor {{ sensor_id }} — Latest 10 Readings</h1>
 
