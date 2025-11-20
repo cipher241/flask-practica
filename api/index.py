@@ -133,6 +133,8 @@ def dashboard():
             """, (sensor_id,))
             valores_sensor=cur.fetchall()
 
+            print(valores_sensor)
+
             values_mostrar = [r[0] for r in rows][::-1]        # reverse for chronological order
             timestamps_mostrar = [r[1].strftime('%Y-%m-%d %H:%M:%S') for r in rows][::-1]
             
