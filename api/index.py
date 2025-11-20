@@ -107,6 +107,7 @@ def get_sensor(sensor_id):
 
 @app.route('/dashboard')
 def dashboard():
+    sensor_id = request.args.get("sensor_id", type=int)
     try:
         conn = get_connection()
         cur = conn.cursor()
@@ -118,7 +119,7 @@ def dashboard():
         rows = cur.fetchall()
         values = [r[0] for r in rows]
 
-        return render_template("dashboard.html", rows=values)
+        return render_template("dashboard.html", rows=values, sensor_id = sensor_id)
 
     except Exception as e:
         return f"<h3>Error: {e}</h3>"
