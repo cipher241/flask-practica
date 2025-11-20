@@ -104,3 +104,15 @@ def get_sensor(sensor_id):
     finally:
         if 'conn' in locals():
             conn.close()
+
+@app.route('/dashboard')
+def dashboard():
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+
+        # Get the latest 10 values
+        cur.execute("""
+            SELECT DISTINCT sensor_id from sensores;;
+        """)
+        rows = cur.fetchall()
