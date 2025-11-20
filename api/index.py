@@ -107,7 +107,7 @@ def get_sensor(sensor_id):
 
 @app.route('/dashboard')
 def dashboard():
-    sensor_id = request.args.get("sensor_id", type=str)
+    sensor_id = request.args.get("sensor_id", type=int)
     try:
         conn = get_connection()
         cur = conn.cursor()
