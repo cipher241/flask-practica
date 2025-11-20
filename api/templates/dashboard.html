@@ -8,8 +8,9 @@
     <form action="/dashboard">
         <label for="sensores">Elige la id del sensor:</label>
         <select name="sensor_id" id="sensor_id">
-            <option value="1">1</option>
-            <option value="2">2</option>
+            {% for sensor_id in rows %}
+            <option value="sensor_id">sensor_id</option>
+            {%endfor%}}
             <option value="todos">todos</option>
         </select>
         <br></br>
