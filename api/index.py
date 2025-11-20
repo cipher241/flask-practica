@@ -116,8 +116,9 @@ def dashboard():
             SELECT DISTINCT sensor_id from sensores;;
         """)
         rows = cur.fetchall()
+        values = [r[0] for r in rows]
 
-        return render_template("dashboard.html", rows=rows)
+        return render_template("dashboard.html", rows=values)
 
     except Exception as e:
         return f"<h3>Error: {e}</h3>"
