@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Readings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
     <h1>Dashboard</h1>
 
@@ -20,7 +26,54 @@
     <p>Oprime el boton "Mostrar" para mostrar los datos del servidor sensores</p>
 
       {%if sensor_id is defined %}
-      <p>El valor seleccionado es {{sensor_id}}</p>
+            <div class="container">
+                <h1>Sensor {{ sensor_id }} — Latest 10 Readings</h1>
+
+                <h2>📋 Data Table</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for value, created_at in valores_sensor %}
+                        <tr>
+                            <td>{{ created_at }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h2>📈 Graph</h2>
+                <canvas id="sensorChart"></canvas>
+            </div>
+
+            <script>
+                const ctx = document.getElementById('sensorChart');
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: {{ timestamps_mostrar|tojson }},
+                        datasets: [{
+                            label: 'Sensor Value',
+                            data: {{ values_mostrar|tojson }},
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: { title: { display: true, text: 'Time' }},
+                            y: { title: { display: true, text: 'Value' }}
+                        }
+                    }
+                });
+            </script>
       {%endif%}
 </body>
 </html>

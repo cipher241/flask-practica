@@ -107,7 +107,7 @@ def get_sensor(sensor_id):
 
 @app.route('/dashboard')
 def dashboard():
-    sensor_id = request.args.get("sensor_id", type=int)
+    sensor_id = request.args.get("sensor_id", type=str)
     try:
         conn = get_connection()
         cur = conn.cursor()
@@ -119,7 +119,24 @@ def dashboard():
         rows = cur.fetchall()
         values = [r[0] for r in rows]
 
-        return render_template("dashboard.html", rows=values, sensor_id = sensor_id)
+        valores_sensor=None
+        values_mostrar = None       
+        timestamps_mostrar = None
+
+        if sensor_id is not None:
+            cur.execute("""
+            SELECT value, created_at
+            FROM sensores
+            WHERE sensor_id = %s
+            ORDER BY created_at DESC
+            LIMIT 10;
+            """, (sensor_id,))
+            valores_sensor=cur.fetchall()
+
+            values_mostrar = [r[0] for r in rows][::-1]        # reverse for chronological order
+            timestamps_mostrar = [r[1].strftime('%Y-%m-%d %H:%M:%S') for r in rows][::-1]
+            
+        return render_template("dashboard.html", rows=values, sensor_id = sensor_id, valores_sensor = valores_sensor, values_mostrar=values_mostrar, timestamps_mostrar=timestamps_mostrar)
 
     except Exception as e:
         return f"<h3>Error: {e}</h3>"
