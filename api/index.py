@@ -116,3 +116,12 @@ def dashboard():
             SELECT DISTINCT sensor_id from sensores;;
         """)
         rows = cur.fetchall()
+
+        return render_template("dashboard.html")
+
+    except Exception as e:
+        return f"<h3>Error: {e}</h3>"
+
+    finally:
+        if 'conn' in locals():
+            conn.close()
