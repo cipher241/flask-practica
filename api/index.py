@@ -134,7 +134,7 @@ def dashboard():
             valores_sensor=cur.fetchall()
 
             values_mostrar = [r[0] for r in valores_sensor][::-1]        # reverse for chronological order
-            timestamps_mostrar = [r[1].strftime('%Y-%m-%d %H:%M:%S') for r in rows][::-1]
+            timestamps_mostrar = [r[1].strftime('%Y-%m-%d %H:%M:%S') for r in valores_sensor][::-1]
             
         return render_template("dashboard.html", rows=values, sensor_id = sensor_id, valores_sensor = valores_sensor, values_mostrar=values_mostrar, timestamps_mostrar=timestamps_mostrar)
 
