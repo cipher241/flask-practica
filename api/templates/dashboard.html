@@ -9,7 +9,7 @@
         <label for="sensores">Elige la id del sensor:</label>
         <select name="sensor_id" id="sensor_id">
             {% for sensor_id in rows %}
-            <option value="{{sensor_id}}">Sensor:</option>
+            <option value="{{sensor_id}}">{{sensor_id}}</option>
             {%endfor%}
             <option value="todos">todos</option>
         </select>
